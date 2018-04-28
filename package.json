@@ -1,0 +1,26 @@
+{
+  "name": "alanine",
+  "version": "0.0.1",
+  "description": "A commenting system inspired by Valine.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LEAFERx/Alanine.git"
+  },
+  "keywords": [
+    "comment"
+  ],
+  "author": "LEAFERx <leaferx@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LEAFERx/Alanine/issues"
+  },
+  "homepage": "https://github.com/LEAFERx/Alanine#readme",
+  "dependencies": {
+    "koa": "^2.5.1",
+    "koa-session": "^5.8.1"
+  }
+}
