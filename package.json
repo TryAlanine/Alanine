@@ -1,11 +1,12 @@
 {
-  "name": "Alanine",
+  "name": "alanine",
   "version": "1.0.0",
   "description": "A commenting system",
   "private": true,
   "dependencies": {
     "egg": "^2.2.1",
-    "egg-scripts": "^2.5.0"
+    "egg-scripts": "^2.5.0",
+    "mongoose": "^5.2.1"
   },
   "devDependencies": {
     "autod": "^3.0.1",
@@ -13,8 +14,8 @@
     "egg-bin": "^4.3.5",
     "egg-ci": "^1.8.0",
     "egg-mock": "^3.14.0",
-    "eslint": "^4.11.0",
-    "eslint-config-egg": "^6.0.0",
+    "eslint": "^5.0.1",
+    "eslint-config-egg": "^7.0.0",
     "webstorm-disable-index": "^1.2.0"
   },
   "engines": {
