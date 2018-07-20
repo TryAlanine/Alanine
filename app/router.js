@@ -17,6 +17,7 @@ module.exports = app => {
   // router.del('/api/comment/:commentId', controller.comment.delete);
 
   router.post('/api/user/login', app.passport.authenticate('local'));
+  router.post('/api/user/register', controller.user.register);
 
   // const github = app.passport.authenticate('github');
   // router.get('/api/user/passport/github', github);
