@@ -11,7 +11,7 @@ class CommentService extends Service {
     return await this.ctx.model.Comment.findById(id);
   }
 
-  async create(user, postId, body) {
+  async create(user, body) {
     const comment = {};
     const { _id, nickname, email, link } = user;
     comment.user = { _id, nickname, email, link };
