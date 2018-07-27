@@ -9,12 +9,7 @@ module.exports = app => {
     content: { type: String },
     ua: { type: String },
     postId: { type: Schema.Types.ObjectId },
-    user: {
-      _id: { type: Schema.Types.ObjectId },
-      nickname: { type: String },
-      email: { type: String },
-      link: { type: String },
-    },
+    userId: { type: Schema.Types.ObjectId },
   });
 
   return mongoose.model('Comment', CommentSchema);
