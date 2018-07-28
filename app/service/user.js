@@ -21,7 +21,7 @@ class UserService extends Service {
   async create(user) {
     const result = await this.ctx.service.user.findByEmail(user.email);
     if (result) {
-      throw new Error('username repeated');
+      throw new Error('email repeated');
     }
     const newUser = await this.ctx.model.User.create(user);
     return newUser;
