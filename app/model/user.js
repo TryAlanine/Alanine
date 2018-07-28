@@ -5,7 +5,6 @@ module.exports = app => {
   const Schema = mongoose.Schema;
 
   const UserSchema = new Schema({
-    _id: { type: Schema.Types.ObjectId },
     email: { type: String },
     emailVerified: { type: Boolean },
     password: { type: String },
@@ -13,6 +12,8 @@ module.exports = app => {
     mobile: { type: String },
     mobileVerified: { type: Boolean },
     link: { type: String },
+    createdAt: { type: Date, default: Date.now() },
+    updatedAt: { type: Date, default: Date.now() },
   });
 
   return mongoose.model('User', UserSchema);

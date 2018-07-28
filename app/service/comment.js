@@ -3,10 +3,6 @@
 const Service = require('egg').Service;
 
 class CommentService extends Service {
-  async getByPostId(postId) {
-    return await this.ctx.model.Comment.find({ postId });
-  }
-
   async getById(id) {
     return await this.ctx.model.Comment.findById(id);
   }
@@ -18,6 +14,36 @@ class CommentService extends Service {
     comment.ua = body.ua;
     comment.postId = body.postId;
     return await this.ctx.model.Comment.create(comment);
+  }
+
+  async update(user, id, content) {
+    const comment = await this.ctx.model.Comment.findById(id);
+    if (!comment || !user._id === comment.userId) {
+      return false;
+    }
+    comment.content = content;
+    await comment.save();
+    return true;
+  }
+
+  async del(user, id) {
+    const comment = await this.ctx.model.Comment.findById(id);
+    if (!comment) {
+      throw new Error('not found');
+    }
+    if (!user._id === comment.userId) {
+      throw new Error('unathorized');
+    }
+    await comment.remove();
+    return true;
+  }
+
+  async getByPostId(postId) {
+    return await this.ctx.model.Comment.find({ postId });
+  }
+
+  async delByPostId(postId) {
+    const comments = await this.ctx.model.Comment.find({ postId });
   }
 }
 
