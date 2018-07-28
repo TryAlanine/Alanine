@@ -3,7 +3,7 @@
 const Controller = require('egg').Controller;
 
 class CommentController extends Controller {
-  async getAll() {
+  async getByPost() {
     const result = await this.ctx.service.comment.getByPostId(this.ctx.params.postId);
     this.ctx.status = 200;
     this.ctx.body = JSON.stringify(result);

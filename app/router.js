@@ -9,7 +9,7 @@ module.exports = app => {
   // router.post('/passport/local', app.passport.authenticate('local'));
   // router.get('/logout', controller.user.logout);
 
-  router.get('/api/comments/:postId', controller.comment.getAll);
+  router.get('/api/comments/:postId', controller.comment.getByPost);
 
   router.get('/api/comment/:commentId', controller.comment.get);
   router.post('/api/comment/', controller.comment.create);

@@ -13,8 +13,7 @@ class CommentService extends Service {
 
   async create(user, body) {
     const comment = {};
-    const { _id, nickname, email, link } = user;
-    comment.user = { _id, nickname, email, link };
+    comment.userId = user._id;
     comment.content = body.content;
     comment.ua = body.ua;
     comment.postId = body.postId;
