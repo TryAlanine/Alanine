@@ -8,7 +8,7 @@ class UserController extends Controller {
   }
 
   async register() {
-    return await this.ctx.service.user.register(this.request.body);
+    return await this.ctx.service.user.create(this.ctx.request.body);
   }
 }
 
