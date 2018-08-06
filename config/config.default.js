@@ -36,5 +36,11 @@ module.exports = appInfo => {
     usernameField: 'email',
   };
 
+  config.cors = {
+    origin: 'https://127.0.0.1:8080',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+    credentials: true,
+  };
+
   return config;
 };

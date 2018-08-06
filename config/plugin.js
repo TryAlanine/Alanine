@@ -17,3 +17,8 @@ exports.passportLocal = {
   enable: true,
   package: 'egg-passport-local',
 };
+
+exports.cors = {
+  enable: true,
+  package: 'egg-cors',
+};

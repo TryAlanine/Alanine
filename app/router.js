@@ -24,6 +24,7 @@ module.exports = app => {
 
   router.post('/api/user/login', app.passport.authenticate('local'));
   router.get('/api/user/logout', controller.user.logout);
+  router.get('/api/user/status', controller.user.status);
 
   // const github = app.passport.authenticate('github');
   // router.get('/api/user/passport/github', github);
