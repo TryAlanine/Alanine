@@ -38,12 +38,8 @@ class CommentService extends Service {
     return true;
   }
 
-  async getByPostId(postId) {
-    return await this.ctx.model.Comment.find({ postId });
-  }
-
-  async delByPostId(postId) {
-    const comments = await this.ctx.model.Comment.find({ postId });
+  async getByPostUrl(postUrl) {
+    return await this.ctx.model.Comment.find({ postUrl });
   }
 }
 

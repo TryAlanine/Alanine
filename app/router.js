@@ -7,16 +7,22 @@ module.exports = app => {
   const { router, controller } = app;
   router.get('/', controller.home.index);
 
-  router.get('/api/comments/:postId', controller.comments.get);
-  router.del('/api/comments/:postId', controller.comments.del);
+  router.get('/api/posts', controller.posts);
+  router.get('/api/posts/:url', controller.posts);
+  router.del('/api/posts/:url', controller.posts);
+  router.get('/api/posts/:url/comments', controller.posts);
+  router.del('/api/posts/:url/comments', controller.posts);
 
-  router.get('/api/comment/:commentId', controller.comment.get);
-  router.post('/api/comment/', controller.comment.create);
-  router.put('/api/comment/:commentId', controller.comment.update);
-  router.del('/api/comment/:commentId', controller.comment.del);
+  router.get('/api/comments/:id', controller.comment.get);
+  router.post('/api/comments/', controller.comment.create);
+  router.put('/api/comments/:id', controller.comment.update);
+  router.del('/api/comments/:id', controller.comment.del);
+
+  router.get('/api/users', controller.users);
+  router.get('/api/users/:email', controller.users);
+  router.post('/api/users', controller.users.register);
 
   router.post('/api/user/login', app.passport.authenticate('local'));
-  router.post('/api/user/register', controller.user.register);
   router.get('/api/user/logout', controller.user.logout);
 
   // const github = app.passport.authenticate('github');

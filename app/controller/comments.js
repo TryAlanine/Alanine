@@ -2,17 +2,33 @@
 
 const Controller = require('egg').Controller;
 
-class CommentsController extends Controller {
+class CommentController extends Controller {
   async get() {
-    if (this.ctx.query.type === 'post') {
-      const result = await this.ctx.service.comment.getByPostId(this.ctx.params.postId);
-      if (result) {
-        this.ctx.status = 200;
-        this.ctx.body = JSON.stringify(result);
-      } else {
-        this.ctx.status = 404;
-      }
+    const result = await this.ctx.service.comment.getById(this.ctx.params.id);
+    if (result) {
+      this.ctx.status = 200;
+      this.ctx.body = JSON.stringify(result);
+    } else {
+      this.ctx.status = 404;
     }
+  }
+
+  async create() {
+    if (!this.ctx.isAuthenticated()) {
+      this.ctx.status = 401;
+      return;
+    }
+    await this.ctx.service.comment.create(this.ctx.user, this.ctx.request.body);
+    this.ctx.status = 200;
+  }
+
+  async update() {
+    if (!this.ctx.isAuthenticated()) {
+      this.ctx.status = 401;
+      return;
+    }
+    await this.ctx.service.comment.update(this.ctx.user, this.ctx.params.id, this.ctx.request.body.content);
+    this.ctx.status = 200;
   }
 
   async del() {
@@ -20,26 +36,24 @@ class CommentsController extends Controller {
       this.ctx.status = 401;
       return;
     }
-    if (this.ctx.query.type === 'post') {
-      try {
-        await this.ctx.service.comment.delByPostId(this.ctx.params.postId);
-        this.ctx.status = 200;
-      } catch (err) {
-        switch (err.message) {
-          case 'not found':
-            this.ctx.status = 404;
-            break;
+    try {
+      await this.ctx.service.comment.del(this.ctx.user, this.ctx.params.id);
+      this.ctx.status = 200;
+    } catch (err) {
+      switch (err.message) {
+        case 'not found':
+          this.ctx.status = 404;
+          break;
 
-          case 'unathorized':
-            this.ctx.status = 401;
-            break;
+        case 'unathorized':
+          this.ctx.status = 401;
+          break;
 
-          default:
-            throw err;
-        }
+        default:
+          throw err;
       }
     }
   }
 }
 
-module.exports = CommentsController;
+module.exports = CommentController;
