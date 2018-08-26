@@ -14,45 +14,21 @@ class CommentsController extends Controller {
   }
 
   async create() {
-    if (!this.ctx.isAuthenticated()) {
-      this.ctx.status = 401;
-      return;
-    }
-    await this.ctx.service.comment.create(this.ctx.user, this.ctx.request.body);
-    this.ctx.status = 200;
+    const { status, msg } = await this.ctx.service.comment.create(this.ctx.user, this.ctx.request.body);
+    this.ctx.status = status;
+    this.ctx.body = { msg };
   }
 
   async update() {
-    if (!this.ctx.isAuthenticated()) {
-      this.ctx.status = 401;
-      return;
-    }
-    await this.ctx.service.comment.update(this.ctx.user, this.ctx.params.id, this.ctx.request.body.content);
-    this.ctx.status = 200;
+    const { status, msg } = await this.ctx.service.comment.update(this.ctx.user, this.ctx.params.id, this.ctx.request.body.content);
+    this.ctx.status = status;
+    this.ctx.body = { msg };
   }
 
   async del() {
-    if (!this.ctx.isAuthenticated()) {
-      this.ctx.status = 401;
-      return;
-    }
-    try {
-      await this.ctx.service.comment.del(this.ctx.user, this.ctx.params.id);
-      this.ctx.status = 200;
-    } catch (err) {
-      switch (err.message) {
-        case 'not found':
-          this.ctx.status = 404;
-          break;
-
-        case 'unathorized':
-          this.ctx.status = 401;
-          break;
-
-        default:
-          throw err;
-      }
-    }
+    const { status, msg } = await this.ctx.service.comment.del(this.ctx.user, this.ctx.params.id);
+    this.ctx.status = status;
+    this.ctx.body = { msg };
   }
 }
 

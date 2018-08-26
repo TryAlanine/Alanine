@@ -15,7 +15,7 @@ class UserService extends Service {
       return false;
       // throw new Error('password incorrect');
     }
-    return result;
+    return result.email; /* result.username */
   }
 
   async create(user) {

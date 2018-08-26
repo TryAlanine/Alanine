@@ -4,7 +4,9 @@ const Controller = require('egg').Controller;
 
 class UserController extends Controller {
   async logout() {
-    this.ctx.logout();
+    await this.ctx.logout();
+    this.ctx.session = null;
+    this.ctx.status = 200;
   }
 
   async register() {

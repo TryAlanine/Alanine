@@ -6,6 +6,7 @@ module.exports = app => {
 
   const PostSchema = new Schema({
     url: { type: String },
+    count: { type: Number },
     createdAt: { type: Date, default: Date.now() },
     updatedAt: { type: Date, default: Date.now() },
   });

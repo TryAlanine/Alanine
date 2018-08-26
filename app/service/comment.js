@@ -13,29 +13,54 @@ class CommentService extends Service {
     comment.content = body.content;
     comment.ua = body.ua;
     comment.postId = body.postId;
-    return await this.ctx.model.Comment.create(comment);
+    await this.ctx.model.Comment.create(comment);
+    return {
+      status: 200,
+      msg: 'Operation Succeed',
+    };
   }
 
   async update(user, id, content) {
     const comment = await this.ctx.model.Comment.findById(id);
-    if (!comment || !user._id === comment.userId) {
-      return false;
+    if (!comment) {
+      return {
+        status: 404,
+        msg: 'Comment Not Found',
+      };
+    }
+    if (!user._id === comment.userId) {
+      return {
+        status: 401,
+        msg: 'Access Denied',
+      };
     }
     comment.content = content;
     await comment.save();
-    return true;
+    return {
+      status: 200,
+      msg: 'Operation Succeed',
+    };
   }
 
   async del(user, id) {
     const comment = await this.ctx.model.Comment.findById(id);
     if (!comment) {
-      throw new Error('not found');
+      return {
+        status: 404,
+        msg: 'Comment Not Found',
+      };
     }
     if (!user._id === comment.userId) {
-      throw new Error('unathorized');
+      return {
+        status: 401,
+        msg: 'Access Denied',
+      };
     }
     await comment.remove();
-    return true;
+    return {
+      status: 200,
+      msg: 'Operation Succeed',
+    };
   }
 
   async getByPostUrl(postUrl) {

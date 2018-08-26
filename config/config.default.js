@@ -28,8 +28,14 @@ module.exports = appInfo => {
 
   config.security = {
     csrf: {
-      enable: false,
+      enable: true,
+      // useSession: true,
+      ignore: ctx => !ctx.session.passport,
     },
+  };
+
+  config.session = {
+    key: 'ALANINE_SESS',
   };
 
   config.passportLocal = {

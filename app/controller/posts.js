@@ -2,42 +2,36 @@
 
 const Controller = require('egg').Controller;
 
-class CommentsController extends Controller {
+class PostsController extends Controller {
+  async index() {
+    //
+  }
+
   async get() {
-    const result = await this.ctx.service.comment.getByPostId(this.ctx.params.postId);
-    if (result) {
+    try {
+      const result = await this.ctx.service.posts.getByUrl(this.ctx.params.url);
       this.ctx.status = 200;
-      this.ctx.body = JSON.stringify(result);
-    } else {
-      this.ctx.status = 404;
+      this.ctx.body = result;
+    } catch (err) {
+      if (err.message === '404') {
+        this.ctx.status = 404;
+      } else {
+        throw err;
+      }
     }
   }
 
   async del() {
-    if (!this.ctx.isAuthenticated()) {
-      this.ctx.status = 401;
-      return;
-    }
-    if (this.ctx.query.type === 'post') {
-      try {
-        await this.ctx.service.comment.delByPostId(this.ctx.params.postId);
-        this.ctx.status = 200;
-      } catch (err) {
-        switch (err.message) {
-          case 'not found':
-            this.ctx.status = 404;
-            break;
+    //
+  }
 
-          case 'unathorized':
-            this.ctx.status = 401;
-            break;
+  async getComments() {
+    //
+  }
 
-          default:
-            throw err;
-        }
-      }
-    }
+  async delComments() {
+    //
   }
 }
 
-module.exports = CommentsController;
+module.exports = PostsController;
